@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autobuses Los Panchos</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Autobuses Los Panchos</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="BusquedaRuta.html">Busqueda Ruta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ReservaCompraBoletos.html">Reserva y Compra de Boletos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ConfirmacionRerservaBoleto.html">Confirmación de la Reserva</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid mt-3">
+        <div class="contenido">
+            <div class="formulario">
+                <form id="formularioBusquedaMedico">
+                    <div class="contenido-contenedor">
+                        <label>Información:</label>
+                        <input id="datoFiltro" type="text" required placeholder="Información">
+                    </div>
+                    <div class="contenido-contenedor">
+                        <label>Filtrar por:</label>
+                        <select name="tipoFiltrado" id="tipoFiltrado">
+                            <option value="Origen">Origen</option>
+                            <option value="Destino">Destino</option>
+                            <option value="Fecha">Fecha</option>
+                            <option value="Horario">Horario</option>
+                        </select>
+                    </div>
+                </form>
+                <input id="botonBusqueda" type="submit" value="Filtrar">
+            </div>
+            <div class="contenido-contenedor">
+                <!-- Botón para abrir el modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservaModal"
+                    style="background-color: #4f4f4f; color: white; border: none;">
+                    Reservar boletos
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="reservaModal" tabindex="-1" role="dialog"
+                    aria-labelledby="reservaModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="background-color: #4f4f4f;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="reservaModalLabel" style="color: white;">Reserva y Compra de
+                                    Boletos</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="asientos" class="form-label" style="color: white;">Número de
+                                            Asiento:</label>
+                                        <input type="number" class="form-control" id="asientos" min="1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="clase" class="form-label" style="color: white;">Clase de
+                                            Servicio:</label>
+                                        <select class="form-select" id="clase">
+                                            <option>Económica</option>
+                                            <option>Premium</option>
+                                            <option>Primera Clase</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fecha" class="form-label" style="color: white;">Fecha del Asiento
+                                            Disponible:</label>
+                                        <input type="date" class="form-control" id="fecha">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="numeroTarjeta" class="form-label" style="color: white;">Número de
+                                            Tarjeta:</label>
+                                        <input type="text" class="form-control" id="numeroTarjeta" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cvv" class="form-label" style="color: white;">CVV:</label>
+                                        <input type="text" class="form-control" id="cvv" required>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    style="background-color: #6D6D6D; color: white; border: none;">Cerrar</button>
+                                <button type="button" class="btn btn-primary"
+                                    style="background-color: #6D6D6D; color: white; border: none;">Comprar</button>
+                                <button type="button" class="btn btn-primary"
+                                    style="background-color: #6D6D6D; color: white; border: none;">Reservar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="contenido-contenedor">
+                <div class="tabla-busqueda">
+                    <table class="elementos-tabla">
+                        <tr>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Fecha</th>
+                            <th>Horario</th>
+                            <th>Información detallada</th>
+                        </tr>
+                    </table>
+                    <tbody class="contenido-tabla">
+
+                    </tbody>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <footer>
+        <p>¡Síguenos en nuestras redes sociales!</p>
+        <div>
+            <a href="https://www.facebook.com/?locale=es_LA">Facebook</a> |
+            <a href="https://twitter.com/?lang=es">X</a> |
+            <a href="https://www.instagram.com/">Instagram</a>
+        </div>
+        <div class="contenidoFooter">
+            <a href="PoliticaPrivacidadTerminosUso.html">Politica de privacidad y terminos de uso</a>
+            <a href="InformacionContacto.html">Información de contacto</a>
+            <a href="SobreNosotros.html">Sobre Nosotros</a>
+
+        </div>
+        <p>Derechos de autor &copy; 2024 Clínica Árbol de Seda</p>
+    </footer>
+</body>
+
+</html>
