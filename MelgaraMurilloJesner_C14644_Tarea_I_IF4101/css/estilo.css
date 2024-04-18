@@ -86,23 +86,32 @@ h1 {
 .tabla-busqueda {
     width: 100%;
     border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo transparente con opacidad */
+    backdrop-filter: blur(10px); /* Aplica un desenfoque al fondo */
 }
 
-.tabla-busqueda th,
+
 .tabla-busqueda td {
     border: 1px solid #4f4f4f;
     padding: 8px;
     text-align: left;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-weight: bold; /* Aplica negrita al texto */
 }
 
 .tabla-busqueda th {
     background-color: #4f4f4f;
     color: #fff;
+    border: 1px solid #4f4f4f;
+    padding: 8px;
+    text-align: left;
 
 }
 
 .tabla-busqueda tr:hover {
-    background-color: #52b788;
+    background-color: #ccc;
 }
 
 /* Media query para hacer responsive */
@@ -170,9 +179,10 @@ footer a:hover {
     padding: 20px;
 }
 
-.formulario input[type="submit"] {
+/* Estilo para botones de envío en formularios */
+.formulario input[type="submit"],
+.formulario button[type="submit"] {
     background-color: #6D6D6D;
-    /* Cambio de color de fondo */
     color: white;
     padding: 10px 20px;
     border: none;
@@ -180,6 +190,15 @@ footer a:hover {
     cursor: pointer;
 }
 
+/* Estilo adicional para todos los botones */
+button {
+    background-color: #6D6D6D;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
 .formulario input[type="password"],
 .formulario input[type="email"] {
