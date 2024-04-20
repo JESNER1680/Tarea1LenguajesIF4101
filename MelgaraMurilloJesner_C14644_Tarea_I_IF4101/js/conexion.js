@@ -16,19 +16,15 @@ function getControllerUri(controllerName) {
   }
   return baseUri + controller;
 }
-
-
-//const uri = 'http://localhost:5104/api/Tarea1_C14644_IF4101';
 let listaDeTareas = [];
 
 
-const obtenerListaDeTareas = () => {
+const obtenerListaDeUsuarios = () => {
   const uri = getControllerUri("usuario");
   fetch(uri)
     .then(response => response.json())
     .then(data => {
       usuarios = convertirJsonAUsuarios(data);
-      mostrarTareasEnTabla(usuarios);
     })
     .catch(error => console.error('No se puede obtener el listado de tareas.', error));
 }
@@ -48,12 +44,6 @@ const convertirJsonAUsuarios = (data) => {
     };
   });
 }
-
-const mostrarTareasEnTabla =(usuarios) => {
-  console.log("CANTIDAD DE USUARIOS: "+usuarios.length);
-}
-
-
 const registrarTarea = () => {
   const uri = getControllerUri("usuario");
   const nombrePersona = document.getElementById("nombrePersona").value.trim();
@@ -63,7 +53,6 @@ const registrarTarea = () => {
  const correoElectronico = document.getElementById("correoElectronico").value.trim();
  const tarjetaCredito = document.getElementById("tarjetaCredito").value.trim();
  const cvvTarjeta = document.getElementById("cvv").value.trim(); 
- console.log(nombrePersona+"-"+cedula+"-"+nombreUsuario+"-"+contrasennia+"-"+correoElectronico+"-"+tarjetaCredito+"-"+cvvTarjeta)
 
  const usuario = {
   nombrePersona: nombrePersona,
@@ -76,7 +65,7 @@ const registrarTarea = () => {
 };
 
 
-  fetch(uri, {//Aqui esta un error
+  fetch(uri, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -90,53 +79,6 @@ const registrarTarea = () => {
     })
     .catch(error => console.error('No se ha podido agregar una tarea', error));
 }
-
-const eliminarTarea = (id) => {
-  fetch(`${uri}/${id}`, {
-    method: 'DELETE'
-  })
-  .then(() => obtenerListaDeTareas())
-  .catch(error => console.error('No se ha podido eliminar una tarea', error));
-}
-
-const mostrarMenuDeEdicion = (id) => {
-  const tarea = listaDeTareas.find(tarea => tarea.id === id);
-  
-  document.getElementById('edit-name').value = tarea.nombre;
-  document.getElementById('edit-id').value = tarea.id;
-  document.getElementById('edit-isComplete').checked = tarea.estaListo;
-  document.getElementById('editForm').style.display = 'block';
-}
-
-/*const editarTarea = () => {
-
-  const idTarea = document.getElementById('edit-id').value;
-
-  const tarea = {
-    id: parseInt(idTarea, 10),
-    estaListo: document.getElementById('edit-isComplete').checked,
-    nombre: document.getElementById('edit-name').value.trim()
-  };
-
-  fetch(`${uri}/${idTarea}`, {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(tarea)
-  })
-  .then(() => obtenerListaDeTareas())
-  .catch(error => console.error('No se ha podido editar una tarea', error));
-
-  cerrarInput();
-
-  return false;
-}
-*/
-
-
-
 const obtenerDatosFormularioRegistro = () =>{
   const nombrePersona = document.getElementById("nombrePersona");
   const cedula = document.getElementById("cedula");
@@ -150,38 +92,33 @@ const obtenerDatosFormularioRegistro = () =>{
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  obtenerListaDeTareas();
+  obtenerListaDeUsuarios();
   const botonRegistro = document.getElementById("RegistrarUsuario");
   if(botonRegistro){
     botonRegistro.addEventListener("click", (event) => {
-      event.preventDefault(); // Evita el envío del formulario por defecto
-      console.log("HOLA ENTRE AL METODO DE REGISTRO");
-      registrarTarea(); // Llama a la función correcta para registrar un usuario
+      event.preventDefault(); 
+      registrarTarea(); 
     });
   }
 
   const botonCerrarRegistro = document.getElementById("CerrarRegistro");
   if(botonCerrarRegistro){
     botonCerrarRegistro.addEventListener("click", (event) => {
-      event.preventDefault(); // Evita el envío del formulario por defecto
+      event.preventDefault(); 
       obtenerListaDeTareas();
-      console.log("HOLA ENTRE AL METODO DE CERRAR REGISTRO");
     });
   }
 
   const formIngresar = document.getElementById("formulario");
   if (formIngresar) {
     formIngresar.addEventListener("submit", (event) => {
-      event.preventDefault(); // Evitar que se recargue la página
+      event.preventDefault(); 
       const nombreUsuario = document.getElementById("nombreUsuario").value.trim();
       const contrasenna = document.getElementById("contrasenna").value.trim();
-      console.log("LISTO: "+nombreUsuario + "-" + contrasenna);
       let usuario = comprobarInicioSesion(nombreUsuario, contrasenna);
-      console.log(usuario);
       if (usuario) {
         usuarioActivo = usuario;
         window.location.href = "BusquedaRuta.html";
-        console.log("usuario encontrado");
       }
     });
   }
@@ -193,7 +130,6 @@ const comprobarInicioSesion = (nombreUsuario, contrasenna) => {
     usuarios.forEach(usuario =>{
       if(usuario.nombreUsuario === nombreUsuario && contrasenna === usuario.contrasennia ){
         usuarioActivo = usuario;
-        // Guardar información del usuario en el sessionStorage
         sessionStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
       }
     });
@@ -207,6 +143,3 @@ const mostrarMenu = () =>{
     menu.style.display = "flex";
   }
 }
-
-
-
